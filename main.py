@@ -15,7 +15,7 @@ import csv
 
 CENNIK_WIDTH = 7 * cm
 CENNIK_WIDTH_COUNT = 4
-CENNIK_HEIGHT_COUNT = 6
+
 
 
 class Cennik:
@@ -50,7 +50,7 @@ def getCennik(title, code, country, article, brand, price):
 
 fileName = 'pdfTable.pdf'
 
-pdf = SimpleDocTemplate(fileName, pagesize=landscape(A4))
+pdf = SimpleDocTemplate(fileName, pagesize=landscape(A4), topMargin=1*cm, bottommargin=1*cm)
 
 pdfmetrics.registerFont(TTFont('Roboto-Medium', 'fonts/Roboto-Medium.ttf'))
 pdfmetrics.registerFont(TTFont('Roboto-Regular', 'fonts/Roboto-Regular.ttf'))
@@ -89,6 +89,13 @@ def getCennikTable(cennik):
 
     dateTable = Table([[cennik.date]], [60])
 
+
+    barcode_date_table = Table([
+        [[barcode_table],
+         [dateTable]],
+
+    ])
+
     qrcode = QrCodeWidget(cennik.qrcode)
     b = qrcode.getBounds()
     qrcode.barWidth = 2.5 * cm
@@ -97,12 +104,6 @@ def getCennikTable(cennik):
     qrcode_url_draw.add(qrcode)
 
     qrTable = Table([[qrcode_url_draw]])
-
-    barcode_date_table = Table([
-        [[barcode_table],
-         [dateTable]],
-
-    ], [75])
 
     cennikTable = Table([
         [titleTable],
