@@ -17,7 +17,6 @@ CENNIK_WIDTH = 7 * cm
 CENNIK_WIDTH_COUNT = 4
 
 
-
 class Cennik:
     title = ''
     code = ''
